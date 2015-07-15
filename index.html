@@ -6,17 +6,17 @@
     <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
      <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=en"></script>
-     <script src="js/smart-table.debug.js"></script>
+      <script src="js/smart-table.debug.js"></script>
      <style>
      .popover {
     max-width: 100%;
-}
+              }
      </style>
  </head>
   <body ng-app="ForecastApp" >
 
     <div class="jumbotron" ng-controller="MainController">
-      <div class="container" style="background-image:url("http://static2.wallpedes.com/wallpaper/weather/weather-during-storm-free-desktop-background-wallpaper-image-wallpaper-weather-desktop-direct-hd-download-for-iphone-ipad-borders-free-naruto-mobile-3d.jpg")">
+      <div class="container">
         <div class="form-inline" role="form">
         <input type="text" class="form-control" placeholder="city" ng-model="city" id="city" autocomplete="on" style="width:25%" >
         <input type="submit" class="btn btn-primary btn-sm" value="Get Details" ng-click="findWeather(city)">
@@ -27,7 +27,7 @@
         
         <p>Current Time:{{t.data.time_zone[0].localtime.substring(11,16)| date:'shortTime'}}
          <h2>Weather Details for next five days</h2>
-          <table class="table table-condensed" style="width:50%" st-table="data.data.weather" st-safe-src="rowCollection">
+          <table class="table table-condensed" style="width:50%" st-table="data.data.weather">
    
    <thead style="background-color:black;color:white"> 
       <tr>
@@ -49,8 +49,9 @@
       <div>
       <accordion close-others="oneAtATime">
     
-    <accordion-group heading="{{news.title}}" ng-repeat="news in news">
-      {{news.body}}<a href="#" popover="{{news.content}}" popover-title="{{news.title}}" popover-placement="right" >more...</a>
+    <accordion-group heading="{{news.webTitle}}" ng-repeat="news in news.response.results">
+      Published On:{{news.webPublicationDate|date:'fullDate'}}
+      Section Name:{{news.sectionName}}<a href="#" popover="Published On:{{news.webPublicationDate|date:'fullDate'}}Section Name:{{news.sectionName}}Web URL:{{news.webUrl}}" popover-title="{{news.webTitle}}" popover-placement="right" >more...</a>
     </accordion-group>
     
     

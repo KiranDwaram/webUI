@@ -54,3 +54,27 @@ app.factory('time', ['$http','$q',function($http,$q)
 			getTime:getTime
 		};
 	}]);
+
+app.factory('news', ['$http','$q',function($http,$q)
+	{
+		function getNews(city)
+		{    
+			var deferred=$q.defer();
+			//alert("inside getTime");
+			$http.get('http://content.guardianapis.com/search?q='+city+'&api-key=eepuydq3pqdupd9grq5rku8n')
+			.success(function(data)
+			{
+               console.log("Time "+data);
+               deferred.resolve(data);
+			})
+			.error(function(err)
+				{
+					console.log(err);
+				   deferred.reject(err);
+				});
+			return deferred.promise;
+		}
+		return {
+			getNews:getNews
+		};
+	}]);
